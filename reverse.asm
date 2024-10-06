@@ -1,8 +1,8 @@
 section .data
-	msg db "Enter the String:",0xa
+	msg db "Enter the string:",0xa
 	len equ $-msg
-	str1 times 100 db 0
 section .bss
+	str1 resb 100
 	rev resb 100
 section .text
 	global _start
@@ -18,21 +18,12 @@ _start:
 	mov ecx,str1
 	mov edx,100
 	int 0x80
+	mov byte[ecx+eax-1],0
 	
-	mov ecx,str1
-	xor ebx,ebx
-lenght:
-	cmp byte [ecx],0
-	je end
-	inc ebx
-	inc ecx
-	jmp lenght
-
-end:	
-	mov edx,ebx
-	
+	mov ecx,eax
+	mov ebx,ecx
 	mov esi,str1
-	add esi,edx
+	add esi,ecx
 	mov edi,rev
 	
 reverse:
@@ -40,8 +31,7 @@ reverse:
 	mov al,[esi]
 	mov [edi],al
 	inc edi
-	cmp esi,str1
-	jne reverse
+	loop reverse
 	
 	mov edx,ebx
 	mov eax,4
