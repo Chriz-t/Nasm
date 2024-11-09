@@ -2,17 +2,14 @@ section .data
     msg db "Enter the string:",0xa
     len equ $-msg
     space db " ",0xa
-    spc db " "
     slen equ $-space
-
+    spc db " "
 section .bss
     str1 resb 100
     count resb 1
     stlen resw 2
-
 section .text
     global _start
-
 _start:
     mov eax,4
     mov ebx,1
@@ -27,11 +24,9 @@ _start:
     int 0x80
 
     mov byte[ecx+eax-1],0
-    mov ecx,eax
-    dec ecx
-    mov [stlen],ecx  
+    dec eax
+    mov [stlen],eax  
   
-
     mov esi,str1
     mov edi,str1
 compare:
@@ -54,8 +49,6 @@ inc_count:
     inc byte[count]
     jmp check2
 print:
-    mov ebp,ecx
-	
     mov eax,4
     mov ebx,1
     mov ecx,esi
@@ -84,13 +77,8 @@ print:
     mov edx,slen
     int 0x80
     
-    mov ecx,ebp
-
     inc esi
-    dec ecx
-    cmp ecx,0
-    jz exit
-    jnz compare
+    jmp compare
 exit:
     mov eax,1
     xor ebx,ebx
