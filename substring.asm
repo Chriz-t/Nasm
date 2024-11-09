@@ -48,6 +48,7 @@ search:
 	mov bl,[edi]
 	cmp al,bl
 	je check
+        mov edi,subs
 	test al,al
 	jz not_eq
 	test bl,bl
