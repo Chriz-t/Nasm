@@ -7,7 +7,6 @@ section .data
 
 section .bss
     str1 resb 100
-    char resb 1
     count resb 1
     stlen resw 2
 
