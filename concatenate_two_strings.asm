@@ -1,7 +1,6 @@
 section .data
 	msg db "Enter a String:",0xa
 	len equ $-msg
-	
 section .bss
 	str1 resb 100
 	str2 resb 100
@@ -20,13 +19,13 @@ _start:
 	mov ecx,str1
 	mov edx,100
 	int 0x80
+
 	mov byte[ecx+eax-1],0
 	mov ecx,eax
 	dec ecx
 	
 	mov esi,str1
 	mov edi,str3
-	
 copy:
 	mov al,[esi]
 	mov [edi],al
@@ -45,6 +44,7 @@ copy:
 	mov ecx,str2
 	mov edx,100
 	int 0x80
+
 	mov byte[ecx+eax-1],0
 	mov ecx,eax
 	dec ecx
@@ -55,6 +55,7 @@ append:
 	inc esi
 	inc edi
 	loop append
+
 	inc edi
 	mov byte[edi],0
 	
@@ -67,5 +68,3 @@ append:
 	mov eax,1
 	xor ebx,ebx
 	int 0x80
-
-	
